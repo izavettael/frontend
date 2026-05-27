@@ -1,0 +1,400 @@
+.working-area {
+  width: 100%;
+  height: 100%;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  overflow: auto;
+  position: relative;
+}
+
+.working-area-content {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.slide-container {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+  position: relative;
+}
+
+.slide-background {
+  width: 800px;
+  height: 600px;
+  min-width: 800px;
+  min-height: 600px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.background-image {
+  position: absolute;
+  object-fit: cover;
+  opacity: 0.7;
+  z-index: 0;
+}
+
+.slide-element {
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+  z-index: 1;
+}
+
+/* УБРАНЫ ГРАНИЦЫ ПО УМОЛЧАНИЮ */
+.text-element {
+  color: #000000;
+  background-color: rgba(255,255,255,0.95);
+  padding: 10px;
+  overflow: hidden;
+  cursor: text;
+  /* Автоматический размер для отображения всего текста */
+  min-width: 50px;
+  min-height: 30px;
+}
+
+/* Серая обводка только для выбранного элемента */
+.text-element.selected {
+  border: 2px solid #999 !important;
+  z-index: 1000 !important;
+}
+
+.text-element.editing {
+  border: 2px solid #007bff !important;
+  z-index: 1000 !important;
+}
+
+/* Убраны границы для изображений (кроме выбранного) */
+.image-element {
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+/* Серая обводка только для выбранного изображения */
+.image-element.selected {
+  border: 2px solid #999 !important;
+}
+
+.text-element-content, .image-element-content {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.element-content {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  line-height: 1.4;
+  overflow: hidden;
+  /* Автоматический перенос текста */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.image-element-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.element-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  color: #666;
+}
+
+.placeholder-id {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.text-edit-input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.4;
+  padding: 5px;
+  background: transparent;
+  /* Убрана прокрутка текста */
+  overflow: hidden;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Убраны подсказки Enter/Esc */
+.edit-hint {
+  display: none;
+}
+
+/* Убран resize-handle */
+.resize-handle {
+  display: none;
+}
+
+.no-elements-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #6c757d;
+  max-width: 300px;
+}
+
+.message-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+.message-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #495057;
+}
+
+.message-hint {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* src/styles/WorkingArea.css */
+
+.working-area {
+  width: 100%;
+  height: 100%;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.working-area-content {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.slide-container {
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.slide-background {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.background-image {
+  position: absolute;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.slide-element {
+  position: absolute;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  z-index: 1;
+}
+
+.slide-element:hover {
+  border-color: #0066cc !important;
+}
+
+.slide-element.selected {
+  border-color: #0066cc !important;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+  background-color: rgba(0, 102, 204, 0.05);
+}
+
+.text-element {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-width: 50px;
+  min-height: 30px;
+}
+
+.text-element-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  padding: 4px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.text-element.editing .text-element-content {
+  padding: 0;
+}
+
+.text-edit-input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+  font-size: inherit;
+  background: transparent;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+.element-content {
+  width: 100%;
+  height: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.image-element {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  min-height: 50px;
+}
+
+.image-element-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.element-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #f0f0f0 25%, #e0e0e0 25%, #e0e0e0 50%, #f0f0f0 50%, #f0f0f0 75%, #e0e0e0 75%);
+  background-size: 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-id {
+  font-size: 10px;
+  color: #666;
+  font-family: monospace;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
+/* Стили для маркеров изменения размера */
+.resize-handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border: 2px solid #0066cc;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 11;
+}
+
+.resize-handle.top-left {
+  top: -5px;
+  left: -5px;
+  cursor: nwse-resize;
+}
+
+.resize-handle.top-right {
+  top: -5px;
+  right: -5px;
+  cursor: nesw-resize;
+}
+
+.resize-handle.bottom-left {
+  bottom: -5px;
+  left: -5px;
+  cursor: nesw-resize;
+}
+
+.resize-handle.bottom-right {
+  bottom: -5px;
+  right: -5px;
+  cursor: nwse-resize;
+}
+
+/* Индикатор перетаскивания */
+.drag-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  font-size: 16px;
+  color: #0066cc;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+/* Стили для выделения прямоугольником (если будет в App.tsx) */
+.selection-rectangle {
+  position: absolute;
+  border: 2px dashed #0066cc;
+  background-color: rgba(0, 102, 204, 0.1);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.drag-delta {
+  font-size: 12px;
+  margin-top: 4px;
+  opacity: 0.8;
+  font-family: monospace;
+  background: rgba(0, 0, 0, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
