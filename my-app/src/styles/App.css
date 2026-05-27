@@ -1,0 +1,565 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f7fa;
+  min-height: 100vh;
+  color: #333;
+  overflow: hidden;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.top-toolbar-container {
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.app-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Левая панель - список слайдов */
+.left-panel {
+  flex: 1;
+  min-width: 280px;
+  max-width: 320px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e8e8e8;
+}
+
+.center-panel {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0; 
+}
+
+.right-panel {
+  flex: 1;
+  min-width: 280px;
+  max-width: 320px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+  border: 1px solid #e8e8e8;
+}
+
+/* Контейнер рабочей области - УБРАНЫ ЗАКРУГЛЕНИЯ */
+.working-area-container {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border: 1px solid #eaeaea;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; 
+}
+
+.working-area-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.working-area-header h3 {
+  font-size: 1.3rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.slide-info-header {
+  background: #4CAF50;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.no-slide-selected {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 300px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  border: 2px dashed #bbc;
+}
+
+.no-slide-selected h3 {
+  font-size: 1.5rem;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.no-slide-selected p {
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 25px;
+  max-width: 400px;
+  line-height: 1.4;
+}
+
+.add-first-slide-btn {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+}
+
+.add-first-slide-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.add-first-slide-btn:active {
+  transform: translateY(0);
+}
+
+/* Правая панель управления */
+.slide-controls-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.panel-title {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+/* Убран блок slide-info-panel */
+.slide-info-panel {
+  display: none;
+}
+
+/* Стили для slide-actions-panel остались без изменений */
+.slide-actions-panel {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.slide-actions-panel h4 {
+  font-size: 1rem;
+  color: #495057;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.action-btn {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+}
+
+.action-btn.primary {
+  background: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #bbdefb;
+}
+
+.action-btn.primary:hover {
+  background: #bbdefb;
+  transform: translateY(-1px);
+}
+
+.action-btn.secondary {
+  background: #f3e5f5;
+  color: #7b1fa2;
+  border: 1px solid #e1bee7;
+}
+
+.action-btn.secondary:hover {
+  background: #e1bee7;
+  transform: translateY(-1px);
+}
+
+.action-btn.danger {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+.action-btn.danger:hover {
+  background: #ffcdd2;
+  transform: translateY(-1px);
+}
+
+.btn-icon {
+  font-size: 1.1rem;
+}
+
+.elements-preview-panel h4 {
+  font-size: 1rem;
+  color: #495057;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.no-elements {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  color: #6c757d;
+  text-align: center;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border: 1px dashed #dee2e6;
+}
+
+.no-elements-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  opacity: 0.5;
+}
+
+.no-elements-text {
+  font-size: 0.9rem;
+}
+
+.elements-list {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #eaeaea;
+  border-radius: 6px;
+  padding: 5px;
+}
+
+.element-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.element-item:hover {
+  background: #e9ecef;
+}
+
+.element-type {
+  font-size: 1rem;
+  margin-right: 10px;
+}
+
+.element-id {
+  flex: 1;
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: #495057;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.element-delete-btn {
+  background: none;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+  font-size: 1.2rem;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.element-delete-btn:hover {
+  background: rgba(220, 53, 69, 0.1);
+}
+
+.no-slide-selected-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 40px 20px;
+  text-align: center;
+  color: #6c757d;
+}
+
+.no-slide-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+.no-slide-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #495057;
+}
+
+.no-slide-hint {
+  font-size: 0.9rem;
+  max-width: 250px;
+  line-height: 1.4;
+}
+
+.text-actions-panel {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.text-actions-panel h4 {
+  font-size: 1rem;
+  color: #495057;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.text-elements-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.text-element-item {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 8px;
+}
+
+.text-preview {
+  font-size: 0.9rem;
+  color: #495057;
+  margin-bottom: 8px;
+  padding: 4px;
+  background: white;
+  border-radius: 3px;
+  border: 1px solid #e9ecef;
+  word-break: break-word;
+}
+
+.text-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.small-btn {
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  text-align: center;
+}
+
+.edit-btn {
+  background: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #bbdefb;
+}
+
+.delete-btn {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+.small-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.no-text-elements {
+  text-align: center;
+  color: #6c757d;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border: 1px dashed #dee2e6;
+  font-size: 0.9rem;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.app-main > * {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* src/styles/App.css */
+/* Добавить эти стили */
+
+.workspace-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.selection-rectangle {
+  position: absolute;
+  border: 2px dashed #0066cc;
+  background-color: rgba(0, 102, 204, 0.1);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.drag-indicator {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 102, 204, 0.9);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  z-index: 100;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.slide-info-header .selection-info {
+  margin-left: 10px;
+  color: #0066cc;
+  font-weight: 500;
+}
+
+.drag-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  font-size: 18px;
+  color: #0066cc;
+  font-weight: 500;
+}
+
+/* Стили для маркеров изменения размера */
+.resize-handle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border: 2px solid #0066cc;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 11;
+}
+
+.resize-handle.top-left {
+  top: -5px;
+  left: -5px;
+  cursor: nwse-resize;
+}
+
+.resize-handle.top-right {
+  top: -5px;
+  right: -5px;
+  cursor: nesw-resize;
+}
+
+.resize-handle.bottom-left {
+  bottom: -5px;
+  left: -5px;
+  cursor: nesw-resize;
+}
+
+.resize-handle.bottom-right {
+  bottom: -5px;
+  right: -5px;
+  cursor: nwse-resize;
+}
